@@ -15,6 +15,14 @@ Running log of how AI assistance is used in this project. Newest entries at the 
 
 ---
 
+## 2026-11-09 — M1: database and API skeleton
+
+- Model: mimo-v2.6-flash-free (opencode)
+- Delegated: migrations (4 tables), PDO layer, router, health endpoint, migration runner, PHPUnit setup — implemented end-to-end on `feat/m1-db-api-skeleton`.
+- Reviewed: ran the stack and the test suite personally; inspected each file against AGENTS.md conventions before committing.
+- Got wrong: (1) assumed the stock `php:8.3-apache` image ships `pdo_mysql` — it does not, caught by `php -m` during M0 verification; (2) Dockerfile initially lacked `zip`/`unzip`, so `composer install` failed; (3) first 404 test used `file_get_contents` without `ignore_errors`, which returns `false` on non-2xx — rewrote tests around a shared request helper. Initial Router draft also had an awkward `result['key']` indirection, simplified to an `error`-vs-`data` check before committing.
+- Outcome: 3/3 tests passing, migrations idempotent (re-run skips applied files), pushed as 4 conventional commits awaiting PR review.
+
 ## 2026-11-08 — M0: project scaffold and environment setup
 
 - Model: mimo-v2.6-flash-free (opencode)

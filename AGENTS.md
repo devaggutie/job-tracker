@@ -43,9 +43,12 @@ infra/           AWS deployment steps (README.md)
 ## Commands
 
 ```bash
-docker compose up -d          # start MySQL + API
-docker compose down           # stop (keeps data volume)
-docker compose down -v        # stop and wipe database
-curl http://localhost:8080    # API health check
-npm run dev                   # React dev server (in web/)
+docker compose up -d --build     # start MySQL + API
+docker compose down              # stop (keeps data volume)
+docker compose down -v           # stop and wipe database
+docker compose exec api composer install   # install PHP dependencies
+docker compose exec api php bin/migrate.php  # run pending migrations
+docker compose exec api ./vendor/bin/phpunit # run tests
+curl http://localhost:8080/health  # API health check
+npm run dev                      # React dev server (in web/)
 ```
