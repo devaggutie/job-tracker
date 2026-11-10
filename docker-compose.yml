@@ -21,17 +21,22 @@ services:
   api:
     build: ./api
     restart: unless-stopped
+    environment:
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${DB_NAME:-jobtracker}
+      DB_USER: ${DB_USER:-jobtracker}
+      DB_PASSWORD: ${DB_PASSWORD:-jobtracker}
     depends_on:
       db:
         condition: service_healthy
     ports:
       - "8080:80"
     volumes:
-      - ./api/public:/var/www/html/public
-      - ./api/src:/var/www/html/src
+      - ./api:/var/www/html
       - ./api/apache.conf:/etc/apache2/sites-available/000-default.conf:ro
     healthcheck:
-      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1/') === false ? 1 : 0);"]
+      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1/health') === false ? 1 : 0);"]
       interval: 10s
       timeout: 5s
       retries: 5

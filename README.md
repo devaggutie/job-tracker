@@ -27,17 +27,25 @@ infra/      AWS deployment steps
 
 ```bash
 cp .env.example .env
-docker compose up -d
-curl http://localhost:8080   # API health check
+docker compose up -d --build
+docker compose exec api composer install
+docker compose exec api php bin/migrate.php
+curl http://localhost:8080/health   # API health check
 ```
 
 - API: http://localhost:8080
 - MySQL: localhost:3306
 
+## Tests
+
+```bash
+docker compose exec api ./vendor/bin/phpunit
+```
+
 ## Roadmap
 
 - [x] M0 — Repo and workflow setup
-- [ ] M1 — Database and API skeleton
+- [x] M1 — Database and API skeleton
 - [ ] M2 — Auth
 - [ ] M3 — Applications CRUD
 - [ ] M4 — React UI
