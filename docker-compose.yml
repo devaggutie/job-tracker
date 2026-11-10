@@ -27,6 +27,7 @@ services:
       DB_NAME: ${DB_NAME:-jobtracker}
       DB_USER: ${DB_USER:-jobtracker}
       DB_PASSWORD: ${DB_PASSWORD:-jobtracker}
+      SESSION_SECURE: ${SESSION_SECURE:-0}
     depends_on:
       db:
         condition: service_healthy

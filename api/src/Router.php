@@ -14,6 +14,11 @@ final class Router
         $this->routes['GET'][$path] = $handler;
     }
 
+    public function post(string $path, callable $handler): void
+    {
+        $this->routes['POST'][$path] = $handler;
+    }
+
     public function dispatch(string $method, string $path): void
     {
         $handler = $this->routes[$method][$path] ?? null;
@@ -28,6 +33,15 @@ final class Router
 
             $this->respond(404, ['error' => 'not found']);
             return;
+        }
+
+        if ($method !== 'GET' && $method !== 'HEAD') {
+            $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
+
+            if (!Csrf::validate(is_string($token) ? $token : null)) {
+                $this->respond(403, ['error' => 'invalid csrf token']);
+                return;
+            }
         }
 
         $result = $handler();
