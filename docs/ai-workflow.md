@@ -15,6 +15,14 @@ Running log of how AI assistance is used in this project. Newest entries at the 
 
 ---
 
+## 2026-11-11 — M3: applications CRUD
+
+- Model: mimo-v2.6-flash-free (opencode)
+- Delegated: router path-param support (`/applications/{id}`), applications repository, CRUD handler with field validation, shared `Request`/`ApiTestCase` extraction (refactor), 12 new tests.
+- Reviewed: full suite + manual curl run of create → status update → history timeline; read the dynamic-SQL builder in `Applications::update` carefully to confirm column names come only from an allowlist, never from request keys directly.
+- Got wrong: (1) `testShowOtherUsersApplicationReturns404` destructured `actingAs()` as `[, , $cookieB]` — the helper returns two values, so `$cookieB` was null and the test hit 401 instead of 404; caught on the first suite run, one-line fix; (2) my manual curl chain silently produced no output because the register call omitted `-c`, so the regenerated session cookie was dropped and every later request 403'd — a tooling mistake, not code, but it's the kind of thing that looks like a real bug until you run the steps individually; (3) an earlier Router draft had a redundant ternary (`$params === [] ? $handler([]) : $handler($params)`) that always took the same branch — simplified before commit.
+- Outcome: 24/24 tests green (195 assertions), manual flow shows `status_history` rows `null → applied → offer`, pushed as 4 conventional commits awaiting PR review.
+
 ## 2026-11-09 — M2: auth (sessions, CSRF, rate limiting)
 
 - Model: mimo-v2.6-flash-free (opencode)
