@@ -52,6 +52,11 @@ docker compose exec api ./vendor/bin/phpunit
 | POST   | /auth/login     | start session, returns CSRF token  |
 | POST   | /auth/logout    | destroy session                    |
 | GET    | /auth/me        | current user                       |
+| GET    | /applications   | list own apps (`?status=`, `?q=`)   |
+| POST   | /applications   | create application                 |
+| GET    | /applications/{id} | application + status timeline   |
+| PUT    | /applications/{id} | update (status change logged)   |
+| DELETE | /applications/{id} | delete application              |
 
 All non-GET requests require the `X-CSRF-Token` header.
 
@@ -60,7 +65,7 @@ All non-GET requests require the `X-CSRF-Token` header.
 - [x] M0 — Repo and workflow setup
 - [x] M1 — Database and API skeleton
 - [x] M2 — Auth
-- [ ] M3 — Applications CRUD
+- [x] M3 — Applications CRUD
 - [ ] M4 — React UI
 - [ ] M5 — Dashboard and follow-ups
 - [ ] M6 — CI (GitHub Actions)

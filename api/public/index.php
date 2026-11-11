@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\ApplicationHandler;
 use App\AuthHandler;
 use App\HealthHandler;
 use App\Router;
@@ -20,6 +21,13 @@ $router->post('/auth/register', [$auth, 'register']);
 $router->post('/auth/login', [$auth, 'login']);
 $router->post('/auth/logout', [$auth, 'logout']);
 $router->get('/auth/me', [$auth, 'me']);
+
+$apps = new ApplicationHandler();
+$router->get('/applications', [$apps, 'index']);
+$router->post('/applications', [$apps, 'create']);
+$router->get('/applications/{id}', [$apps, 'show']);
+$router->put('/applications/{id}', [$apps, 'update']);
+$router->delete('/applications/{id}', [$apps, 'destroy']);
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';

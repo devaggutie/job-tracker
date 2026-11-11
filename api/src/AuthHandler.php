@@ -18,7 +18,7 @@ final class AuthHandler
 
     public function register(): array
     {
-        $body = $this->jsonBody();
+        $body = Request::jsonBody();
         if ($body === null) {
             return ['status' => 400, 'error' => 'invalid json body'];
         }
@@ -57,7 +57,7 @@ final class AuthHandler
 
     public function login(): array
     {
-        $body = $this->jsonBody();
+        $body = Request::jsonBody();
         if ($body === null) {
             return ['status' => 400, 'error' => 'invalid json body'];
         }
@@ -129,18 +129,6 @@ final class AuthHandler
         }
 
         return ['status' => 200, 'data' => ['user' => $user]];
-    }
-
-    private function jsonBody(): ?array
-    {
-        $raw = file_get_contents('php://input');
-        if ($raw === false || $raw === '') {
-            return null;
-        }
-
-        $decoded = json_decode($raw, true);
-
-        return is_array($decoded) ? $decoded : null;
     }
 
     private function email(array $body): ?string
