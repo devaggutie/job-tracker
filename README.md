@@ -42,11 +42,24 @@ curl http://localhost:8080/health   # API health check
 docker compose exec api ./vendor/bin/phpunit
 ```
 
+## API
+
+| Method | Path            | Description                        |
+| ------ | --------------- | ---------------------------------- |
+| GET    | /health         | health check                       |
+| GET    | /auth/csrf      | get CSRF token for mutating calls  |
+| POST   | /auth/register  | create account, returns session    |
+| POST   | /auth/login     | start session, returns CSRF token  |
+| POST   | /auth/logout    | destroy session                    |
+| GET    | /auth/me        | current user                       |
+
+All non-GET requests require the `X-CSRF-Token` header.
+
 ## Roadmap
 
 - [x] M0 — Repo and workflow setup
 - [x] M1 — Database and API skeleton
-- [ ] M2 — Auth
+- [x] M2 — Auth
 - [ ] M3 — Applications CRUD
 - [ ] M4 — React UI
 - [ ] M5 — Dashboard and follow-ups

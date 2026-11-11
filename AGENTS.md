@@ -28,6 +28,7 @@ infra/           AWS deployment steps (README.md)
 
 - PHP: `declare(strict_types=1)` in every file; classes in `api/src/`; JSON responses shaped as `{"data": ...}` or `{"error": ...}` with correct HTTP status codes.
 - SQL: prepared statements only. Never interpolate user input into SQL.
+- Auth: PHP session cookies; `password_hash`/`password_verify` only. Every non-GET request must carry a valid `X-CSRF-Token` header (fetch from `GET /auth/csrf`). Failed logins are rate limited server-side.
 - React: function components; one component per file; data fetching through a small `api/` helper module, no inline `fetch` in components.
 - Commits: Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `test:`), one logical change per commit.
 - Branches: `feat/<slug>`, `fix/<slug>` — one issue, one branch, one PR.

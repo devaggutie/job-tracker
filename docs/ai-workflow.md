@@ -15,6 +15,14 @@ Running log of how AI assistance is used in this project. Newest entries at the 
 
 ---
 
+## 2026-11-09 — M2: auth (sessions, CSRF, rate limiting)
+
+- Model: mimo-v2.6-flash-free (opencode)
+- Delegated: full auth implementation — session helpers, CSRF token validation, DB-backed login rate limiter, users repository, 5 endpoints, router CSRF enforcement, 9 new tests.
+- Reviewed: ran suite and a manual curl flow (csrf → register → me → rejected logout); inspected cookie/session handling closely.
+- Got wrong: (1) first draft of the flow test reused the pre-register session cookie after `session_regenerate_id(true)` — the old session is destroyed on regenerate, so requests would have 403'd; caught by reasoning through the test before running it, fixed to use the cookie returned by each mutating response; (2) duplicate-email detection initially keyed off `PDOException::getCode()`, which is not reliably the SQLSTATE — switched to `$e->errorInfo[0] === '23000'`. Also documented the tradeoff that failed logins are recorded per (ip, email) with a fixed 15-minute window.
+- Outcome: 12/12 tests green (3 health + 9 auth), pushed as 4 conventional commits awaiting PR review.
+
 ## 2026-11-09 — M1: database and API skeleton
 
 - Model: mimo-v2.6-flash-free (opencode)
