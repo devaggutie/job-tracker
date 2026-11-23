@@ -33,6 +33,15 @@ docker compose exec api php bin/migrate.php
 curl http://localhost:8080/health   # API health check
 ```
 
+Then start the frontend in a second terminal:
+
+```bash
+cd web
+npm install
+npm run dev                         # http://localhost:5173 (proxies /auth, /applications to the API)
+```
+
+- Frontend: http://localhost:5173
 - API: http://localhost:8080
 - MySQL: localhost:3306
 
@@ -66,7 +75,7 @@ All non-GET requests require the `X-CSRF-Token` header.
 - [x] M1 — Database and API skeleton
 - [x] M2 — Auth
 - [x] M3 — Applications CRUD
-- [ ] M4 — React UI
+- [x] M4 — React UI
 - [ ] M5 — Dashboard and follow-ups
 - [ ] M6 — CI (GitHub Actions)
 - [ ] M7 — AWS deployment

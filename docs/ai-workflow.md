@@ -15,6 +15,14 @@ Running log of how AI assistance is used in this project. Newest entries at the 
 
 ---
 
+## 2026-11-11 — M4: React UI
+
+- Model: mimo-v2.6-flash-free (opencode)
+- Delegated: full frontend scaffold (Vite + React 18), fetch wrapper with automatic CSRF handling, auth context + protected routing, five pages (login/register, list with filters, Kanban board, shared add/edit form, detail with timeline), and the stylesheet.
+- Reviewed: `npm run build` (clean), dev-server proxy curls for `/health` and `/auth/csrf`, backend suite re-run to confirm no API drift; read `api.js` and the form payload builder carefully for the empty-string-vs-null salary/url cases.
+- Got wrong: (1) `BoardPage` first draft used a dynamic `await import('../api')` for no reason — replaced with a normal static import before committing; (2) initial proxy verification failed with `ECONNREFUSED` because the Docker stack had been shut down after M3 — reminder to check `docker compose up` before blaming the proxy config; (3) form submission needed explicit `'' → null` conversion for url/salary/date fields, since the API rejects empty strings for numeric/date columns — caught while writing the payload builder, not by a failing test (the frontend has no test runner yet — a gap for a later milestone).
+- Outcome: build clean, proxy verified, 24/24 API tests green, pushed as 3 conventional commits awaiting PR review. Note: react-router-dom added as the first new dependency — justified in the PR description per AGENTS.md.
+
 ## 2026-11-11 — M3: applications CRUD
 
 - Model: mimo-v2.6-flash-free (opencode)
