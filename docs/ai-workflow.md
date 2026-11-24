@@ -15,6 +15,14 @@ Running log of how AI assistance is used in this project. Newest entries at the 
 
 ---
 
+## 2026-11-24 — M6: CI (GitHub Actions)
+
+- Model: mimo-v2.6-flash-free (opencode)
+- Delegated: `.github/workflows/ci.yml` (two parallel jobs: backend `php -l` lint + PHPUnit against a MySQL 8 service container with the API served by `php -S` as a front controller, frontend `npm ci` + `npm run build` with Node 20 caching), `TEST_BASE_URL` support in `ApiTestCase`, and refactoring `HealthTest` onto the shared request helper.
+- Reviewed: rehearsed the entire CI recipe in a one-off `job-tracker-api` container on the host network before pushing (same steps, same env, different port), re-ran the default Docker path with no `TEST_BASE_URL` set to confirm no regression, ran the exact `php -l` find/xargs pipeline, `npm ci` + build from a clean `node_modules`, and validated the workflow YAML with PyYAML.
+- Got wrong: (1) `HealthTest` had its own private `request()` that hardcoded `http://127.0.0.1` — the rehearsal failed with connection-refused on all three of its tests, which is exactly why the recipe was rehearsed before pushing; fixed by extending `ApiTestCase` and deleting the duplicated helper; (2) first draft referenced job-level `env` inside `services.mysql.env` via `${{ env.* }}` — that context is not reliably available there, so service credentials are hardcoded explicitly.
+- Outcome: rehearsed recipe 24/24 green, default path 24/24 green, lint clean, build clean, pushed as 3 conventional commits awaiting PR review. Note: M5 was still unmerged when this branch was cut, so CI will report 24 tests until M5 lands and this branch rebases.
+
 ## 2026-11-11 — M4: React UI
 
 - Model: mimo-v2.6-flash-free (opencode)
