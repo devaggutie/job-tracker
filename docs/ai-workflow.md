@@ -15,6 +15,14 @@ Running log of how AI assistance is used in this project. Newest entries at the 
 
 ---
 
+## 2026-11-23 — M5: dashboard and follow-ups
+
+- Model: mimo-v2.6-flash-free (opencode)
+- Delegated: `GET /dashboard` endpoint (status counts, 8-week ISO series, follow-up queue), repository with `GROUP BY` / `YEARWEEK(..., 3)`, dashboard page with count cards, pure-CSS bar chart, and overdue highlighting, plus 4 tests.
+- Reviewed: suite run, live curl of `/dashboard` (verified week Mondays and zero-fill), `npm run build`; read the week-key construction (`o` + padded `W`) against MySQL's `YEARWEEK` mode 3 by hand.
+- Got wrong: (1) `Dashboard.php` initially omitted `use DateTimeImmutable` — would have fataled in namespace `App`; caught while re-reading the file before running, fixed pre-emptively; (2) the aggregation test created **three** applications with today's date but asserted a weekly sum of 2 — failed on first run, corrected to 3; (3) first draft of the weekStart assertion was an unreadable conditional expression, replaced with an explicit expected-Monday computation. Also note: the Docker containers were found stopped mid-session (`SIGWINCH` at 23:30) — not a code issue, restarted with `docker compose up -d`, but a reminder that a dead stack can masquerade as an app bug (same lesson as M4's `ECONNREFUSED`).
+- Outcome: 28/28 tests (245 assertions), dashboard shape verified live, build clean, pushed as 3 conventional commits awaiting PR review.
+
 ## 2026-11-11 — M4: React UI
 
 - Model: mimo-v2.6-flash-free (opencode)

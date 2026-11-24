@@ -66,6 +66,7 @@ docker compose exec api ./vendor/bin/phpunit
 | GET    | /applications/{id} | application + status timeline   |
 | PUT    | /applications/{id} | update (status change logged)   |
 | DELETE | /applications/{id} | delete application              |
+| GET    | /dashboard     | status counts, weekly totals, follow-ups |
 
 All non-GET requests require the `X-CSRF-Token` header.
 
@@ -76,7 +77,7 @@ All non-GET requests require the `X-CSRF-Token` header.
 - [x] M2 — Auth
 - [x] M3 — Applications CRUD
 - [x] M4 — React UI
-- [ ] M5 — Dashboard and follow-ups
+- [x] M5 — Dashboard and follow-ups
 - [ ] M6 — CI (GitHub Actions)
 - [ ] M7 — AWS deployment
 - [ ] M8 — Portfolio polish
