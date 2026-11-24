@@ -21,6 +21,7 @@ export default function Shell() {
             Applications
           </NavLink>
           <NavLink to="/board">Board</NavLink>
+          <NavLink to="/dashboard">Dashboard</NavLink>
         </nav>
         <div className="topbar-right">
           <span className="muted">{user.email}</span>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\ApplicationHandler;
 use App\AuthHandler;
+use App\DashboardHandler;
 use App\HealthHandler;
 use App\Router;
 use App\Session;
@@ -28,6 +29,9 @@ $router->post('/applications', [$apps, 'create']);
 $router->get('/applications/{id}', [$apps, 'show']);
 $router->put('/applications/{id}', [$apps, 'update']);
 $router->delete('/applications/{id}', [$apps, 'destroy']);
+
+$dashboard = new DashboardHandler();
+$router->get('/dashboard', [$dashboard, 'show']);
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';

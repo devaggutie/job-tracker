@@ -478,10 +478,161 @@ textarea:focus {
   color: var(--muted);
 }
 
+.dashboard-section {
+  margin-bottom: 1.75rem;
+}
+
+.dashboard-section h2 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+}
+
+.stat-card:hover {
+  text-decoration: none;
+  border-color: #cbd5e1;
+}
+
+.stat-number {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.stat-applied {
+  border-left-color: #1d4ed8;
+}
+
+.stat-interviewing {
+  border-left-color: #b45309;
+}
+
+.stat-offer {
+  border-left-color: #15803d;
+}
+
+.stat-rejected {
+  border-left-color: #b91c1c;
+}
+
+.stat-accepted {
+  border-left-color: #0f766e;
+}
+
+.chart {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  height: 200px;
+  padding: 1rem;
+}
+
+.chart-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.chart-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.chart-bar {
+  width: 70%;
+  max-width: 40px;
+  background: var(--primary);
+  border-radius: 4px 4px 0 0;
+}
+
+.chart-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.followup-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.followup-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.followup-list li:last-child {
+  border-bottom: none;
+}
+
+.followup-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.followup-main a {
+  font-weight: 600;
+}
+
+.followup-main .muted {
+  font-size: 0.85rem;
+}
+
+.badge-overdue {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.badge-due {
+  background: #fef3c7;
+  color: #b45309;
+}
+
 @media (max-width: 720px) {
   .form-row,
   .detail-grid {
     grid-template-columns: 1fr;
+  }
+
+  .stat-cards {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .topbar {

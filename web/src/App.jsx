@@ -3,6 +3,7 @@ import { AuthProvider } from './AuthContext';
 import Protected from './components/Protected';
 import Shell from './components/Shell';
 import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage';
 import ApplicationsPage from './pages/ApplicationsPage';
 import BoardPage from './pages/BoardPage';
 import ApplicationFormPage from './pages/ApplicationFormPage';
@@ -16,6 +17,7 @@ export default function App() {
         <Route element={<Protected />}>
           <Route element={<Shell />}>
             <Route path="/" element={<ApplicationsPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/board" element={<BoardPage />} />
             <Route path="/applications/new" element={<ApplicationFormPage />} />
             <Route path="/applications/:id" element={<ApplicationDetailPage />} />
