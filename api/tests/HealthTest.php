@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use PHPUnit\Framework\TestCase;
-
-final class HealthTest extends TestCase
+final class HealthTest extends ApiTestCase
 {
     public function testHealthReturnsOkWithDatabase(): void
     {
@@ -31,24 +29,5 @@ final class HealthTest extends TestCase
 
         self::assertSame(405, $status);
         self::assertSame('method not allowed', $json['error']);
-    }
-
-    /**
-     * @return array{0: int, 1: array<string, mixed>|null}
-     */
-    private function request(string $method, string $path): array
-    {
-        $context = stream_context_create(['http' => ['method' => $method, 'ignore_errors' => true]]);
-        $body = file_get_contents('http://127.0.0.1' . $path, false, $context);
-        self::assertNotFalse($body);
-
-        $status = 0;
-        foreach ($http_response_header ?? [] as $header) {
-            if (preg_match('#^HTTP/\S+\s+(\d{3})#', $header, $m) === 1) {
-                $status = (int) $m[1];
-            }
-        }
-
-        return [$status, json_decode($body, true)];
     }
 }

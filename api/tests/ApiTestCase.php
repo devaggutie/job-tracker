@@ -8,6 +8,11 @@ use PHPUnit\Framework\TestCase;
 
 abstract class ApiTestCase extends TestCase
 {
+    protected function baseUrl(): string
+    {
+        return rtrim((string) (getenv('TEST_BASE_URL') ?: 'http://127.0.0.1'), '/');
+    }
+
     /**
      * @return array{0: int, 1: array<string, mixed>|null, 2: string|null}
      */
@@ -37,7 +42,7 @@ abstract class ApiTestCase extends TestCase
             ],
         ]);
 
-        $raw = file_get_contents('http://127.0.0.1' . $path, false, $context);
+        $raw = file_get_contents($this->baseUrl() . $path, false, $context);
         self::assertNotFalse($raw);
 
         $status = 0;

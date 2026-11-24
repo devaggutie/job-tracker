@@ -1,5 +1,7 @@
 # Job Tracker
 
+[![CI](https://github.com/devaggutie/job-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/devaggutie/job-tracker/actions/workflows/ci.yml)
+
 Track job applications through your pipeline — add roles, move them through statuses, and see what needs a follow-up.
 
 Portfolio project built with an AI-assisted workflow: the code, the Git habits, and the deployment are all part of the deliverable.
@@ -51,6 +53,8 @@ npm run dev                         # http://localhost:5173 (proxies /auth, /app
 docker compose exec api ./vendor/bin/phpunit
 ```
 
+CI (GitHub Actions) runs `php -l`, the PHPUnit suite against a MySQL 8 service container, and the frontend build on every PR and push to `main`.
+
 ## API
 
 | Method | Path            | Description                        |
@@ -78,6 +82,7 @@ All non-GET requests require the `X-CSRF-Token` header.
 - [x] M3 — Applications CRUD
 - [x] M4 — React UI
 - [x] M5 — Dashboard and follow-ups
+- [x] M6 — CI (GitHub Actions)
 - [ ] M6 — CI (GitHub Actions)
 - [ ] M7 — AWS deployment
 - [ ] M8 — Portfolio polish
